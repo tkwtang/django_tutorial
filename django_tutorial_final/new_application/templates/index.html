@@ -1,0 +1,49 @@
+mean: <input class="mean_input" value=""></input>
+std: <input class="std_input" value=""></input>
+N: <input class="sample_number_input" value=""></input>
+
+<button class="submit"> click me </button>
+
+<img class="graph" src="/static/chaos2.gif">
+
+
+
+<script type="text/javascript">
+var csrf_token = "{{ csrf_token }}"
+
+var mean_input = document.querySelector(".mean_input")
+var std_input = document.querySelector(".std_input")
+var sample_number_input = document.querySelector(".sample_number_input")
+var submit_button = document.querySelector(".submit")
+var img_object = document.querySelector(".graph")
+
+submit_button.addEventListener("click", function(){
+    console.log("the button is clicked.")
+
+    var input_json = {
+        "mean": parseFloat(mean_input.value),
+        "std": parseFloat(std_input.value),
+        "N": parseInt(sample_number_input.value)
+    }
+
+    console.log(input_json)
+
+    const xhttp = new XMLHttpRequest();
+    var url = 'graph_generator';
+    xhttp.open('POST', url, true);
+    xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhttp.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhttp.readyState == 4 && xhttp.status == 200) {
+          var returnData = JSON.parse(xhttp.responseText)
+          console.log("return data = ", returnData)
+          img_object.src = "/static/" + returnData["imgSrc"]
+        }
+    }
+
+    xhttp.send(JSON.stringify(input_json));
+
+})
+
+</script>
