@@ -1,0 +1,24 @@
+mean: <input class="mean_input" value="100"></input>
+std: <input class="std_input" value=""></input>
+N: <input class="sample_number_input" value=""></input>
+
+<button class="submit"> click me </button>
+
+<br><br>
+<img class="graph" src="https://physics.ucdavis.edu/application/files/4916/1297/8110/PhysicsAstronomy_wide.png">
+
+<!-- 5. start from this simple -->
+<script type="text/javascript">
+  var csrf_token = "{{ csrf_token }}"
+
+  var mean_input = document.querySelector(".mean_input")
+  var std_input = document.querySelector(".std_input")
+  var sample_number_input = document.querySelector(".sample_number_input")
+  var submit_button = document.querySelector(".submit")
+  var img_object = document.querySelector(".graph")
+
+  console.log(mean_input)
+  console.log(submit_button)
+  console.log(img_object)
+
+</script>
